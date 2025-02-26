@@ -7,8 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="DTOs\" />
-    <Folder Include="Mappers\" />
+    <PackageReference Include="AutoMapper" Version="14.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\LearnProject.Data\LearnProject.Data.csproj" />
+    <ProjectReference Include="..\LearnProject.Domain\LearnProject.Domain.csproj" />
   </ItemGroup>
 
 </Project>
