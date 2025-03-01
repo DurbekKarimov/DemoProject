@@ -14,5 +14,6 @@ public static class ServiceExtension
 
         // Folder Name : USer
         services.AddScoped<IUserService, UserService>();
+
     }
 }
