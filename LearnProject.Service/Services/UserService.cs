@@ -5,14 +5,16 @@ using LearnProject.Service.DTOs;
 using LearnProject.Service.Exceptions;
 using LearnProject.Service.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace LearnProject.Service.Services;
 
 public class UserService : IUserService
 {
+    #region
     private readonly IMapper mapper;
     private readonly IRepository<User> repository;
-    public UserService(IMapper mapper,IRepository<User> repository)
+    public UserService(IMapper mapper, IRepository<User> repository)
     {
         this.mapper = mapper;
         this.repository = repository;
@@ -33,7 +35,7 @@ public class UserService : IUserService
 
     public async Task<bool> RemoveAsync(long id)
     {
-        var user  = await repository.SelectAll()
+        var user = await repository.SelectAll()
             .Where(u => u.Id == id)
             .FirstOrDefaultAsync();
         if (user is null)
@@ -53,7 +55,7 @@ public class UserService : IUserService
     public async Task<UserForResultDto> RetrieveByIdAsync(long id)
     {
         var user = await repository.SelectAll()
-            .Where (u => u.Id == id)
+            .Where(u => u.Id == id)
             .FirstOrDefaultAsync();
         if (user is null)
             throw new LearnProjectException(404, "User is not found");
@@ -61,7 +63,7 @@ public class UserService : IUserService
         return mapper.Map<UserForResultDto>(user);
     }
 
-    public async Task<UserForResultDto> ModifyAsync(long id,UserForUpdateDto dto)
+    public async Task<UserForResultDto> ModifyAsync(long id, UserForUpdateDto dto)
     {
         var user = await repository.SelectAll()
             .Where(u => u.Id == id)
@@ -74,4 +76,5 @@ public class UserService : IUserService
 
         return mapper.Map<UserForResultDto>(mapped);
     }
+    #endregion
 }
